@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+ 
+    
+  
+    .SegoeUI_Semibold{
+        font-family: 'SegoeUI_Semibold';
+    }
+  
+    .SegoeUI_Bold{
+        font-family: 'SegoeUI_Bold';
+    }
+    .SegoeUI_Black{
+        font-family: 'SegoeUI_Black';
+        
+    }
+    .isdragging * {
+        @apply !select-none !cursor-none !important;
+    }
+    .editor_anchor{
+        @apply w-fit max-w-full grow flex flex-col;
+    }
+    .editor_hover_target{
+        @apply bg-blue-300 bg-opacity-30;
+    }
+    .editor_hover{
+        @apply w-full grow;
+    }
+    .options_button{
+        @apply  px-3 py-3 bg-white cursor-pointer rounded-[15px] shadow-xl flex justify-center items-center transition-transform hover:scale-110 active:scale-75;
+    }
+    *{
+        font-family: 'SegoeUI';
+        color: black;
+        font-size: 16px;
+        user-select: none; 
+    }
+    @font-face {
+        font-family: 'SegoeUI';
+        src: url('/SegoeUI/SegoeUI.ttf');
+    }
+    @font-face {
+        font-family: 'SegoeUI_Black';
+        src: url('/SegoeUI/SegoeUI_Black.ttf');
+    }
+    @font-face {
+        font-family: 'SegoeUI_Bold';
+        src: url('/SegoeUI/SegoeUI_Bold.ttf');
+    }
+    @font-face {
+        font-family: 'SegoeUI_Semibold';
+        src: url('/SegoeUI/SegoeUI_Semibold.ttf');
+    }
+}
