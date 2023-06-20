@@ -57,6 +57,7 @@
     export var main_size_x = 0;
     export var main_size_y = 0;
     var is_absolute = false;
+    var root_top : any;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -66,7 +67,7 @@
     style="left: {is_absolute?  X - (main_size_x / 2) + 'px':"0"}; top:{is_absolute? Y -
         (main_size_y / 2) +
         'px':"0"};"
-    class="w-fit !m-0"
+    class="max-w-full  !m-0"
     bind:this={root}
 >
     <p
@@ -81,6 +82,8 @@
             {is_placed ? ' ' : 'pointer-events-none opacity-50'}"
         style="outline-style: solid;"
     />
+    
 </div>
+<Top_level bind:root_top={root_top} bind:content rect={rect_} bind:edit bind:options {root} />
 
-<Top_level bind:content rect={rect_} bind:edit bind:options {root} />
+ 

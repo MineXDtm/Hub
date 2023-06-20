@@ -8,27 +8,31 @@
     var canvas: any = undefined;
     var aspectRatio = 1;
     var created: any;
-    var created_anchor :any;
-    function create_instance(anchor : string) {
-      
+    var created_anchor: any;
+    function create_instance(anchor: string) {
         if ($target != null) {
-            if(anchor == ""){
+            if (anchor == "") {
                 anchor = "up";
             }
-            created = new component_object[$target]({ target: canvas.querySelector("#"+anchor) }); 
+            created = new component_object[$target]({
+                target: canvas.querySelector("#" + anchor),
+            });
         }
     }
     var hover = false;
     function mouse_move(event: TouchEvent) {
-        const element : any = document.elementFromPoint(
+        const element: any = document.elementFromPoint(
             event.touches[0].clientX,
             event.touches[0].clientY
-        ); 
-        if (element.classList.contains("editor_hover") || element == edit_hover ) {
+        );
+        if (
+            element.classList.contains("editor_hover") ||
+            element == edit_hover
+        ) {
             if (!hover) {
                 hover = true;
                 create_instance(element.id);
-                created_anchor=element.id;
+                created_anchor = element.id;
                 return;
             }
             if (created != null) {
@@ -36,9 +40,11 @@
                 var x = (event.touches[0].clientX - rect.left) / aspectRatio;
                 var y = (event.touches[0].clientY - rect.top) / aspectRatio;
                 created.$set({ X: x, Y: y });
-                if(created_anchor != element.id){
+                if (created_anchor != element.id) {
                     created.root.remove();
-                    canvas.querySelector("#"+element.id).appendChild( created.root);
+                    canvas
+                        .querySelector("#" + element.id)
+                        .appendChild(created.root);
                     created_anchor = element.id;
                 }
             }
@@ -58,7 +64,7 @@
             created.is_placed = true;
             created = null;
             created_anchor = null;
-            aspect = main.clientWidth/canvas.clientHeight*aspectRatio;
+            aspect = (main.clientWidth / canvas.clientHeight) * aspectRatio;
         }
     }
     var component_object: any = {};
@@ -84,19 +90,20 @@
     $: {
         if (main != undefined) console.log(main.scrollTop);
     }
+    var scale = 1;
     onMount(async () => {
         function scaleContent() {
             const wrapperWidth = main.offsetWidth;
             const wrapperHeight = main.offsetHeight;
             aspectRatio = wrapperWidth / 590;
 
-            canvas.style.transform = `scale(${aspectRatio})`;
+            scale = aspectRatio;
         }
-        function loop(){
-            if(main != null && canvas != null){ 
-                aspect = main.clientWidth/canvas.clientHeight*aspectRatio; 
+        function loop() {
+            if (main != null && canvas != null) {
+                aspect = (main.clientWidth / canvas.clientHeight) * aspectRatio;
             }
-            setTimeout(loop,1);
+            setTimeout(loop, 1);
         }
         window.addEventListener("resize", scaleContent);
         scaleContent();
@@ -105,35 +112,49 @@
             window.removeEventListener("resize", scaleContent);
         };
     });
-    var aspect = 1/1;
-    function limitNumberWithinRange(num, min, max){
+    var aspect = 1 / 1;
+    function limitNumberWithinRange(num, min, max) {
         const MIN = min || 1;
         const MAX = max || 20;
-        const parsed = parseInt(num)
-        return Math.min(Math.max(parsed, MIN), MAX)
+        const parsed = parseInt(num);
+        return Math.min(Math.max(parsed, MIN), MAX);
     }
-     
+    var preview = false;
 </script>
 
-<div class="w-full  h-full flex justify-center items-center">
+<div class="w-full h-full flex  justify-end items-center flex-col space-y-7">
     <div
         bind:this={main}
-        class="w-[590px] max-h-[760px] bg-cover   overflow-hidden relative rounded-[15px] transition-all"
-        style="background-image: url(/canvas_backgrounds/canvas_background_red.png); height:{canvas != null? limitNumberWithinRange(canvas.clientHeight*aspectRatio,0,760*aspectRatio)+"px":"0"};
-        {$target != null? "":"aspect-ratio: "+aspect+";"} 
-        border-radius: 15px;"
+        class="max-w-[590px] {preview == true? "w-[90%] " : "w-full"} max-h-[760px] overflow-visible relative transition-all"
+        style=" height:{canvas !=
+            null
+                ? limitNumberWithinRange(
+                      canvas.clientHeight * aspectRatio,
+                      0,
+                      760 * aspectRatio
+                  ) + 'px'
+                : '0'}; {$target != null ? '' : 'aspect-ratio: ' + aspect + ';'} "
     >
+     
         <div
-            bind:this={canvas}
+            class="bg-cover w-full h-full absolute top-0 left-0"
             style="
-        transform: scale(1);
-        transform-origin: top left;
-        "
-            class="relative w-[590px]  space-y-[10px] px-[30px] py-[30px] flex items-center flex-col"
-        >
-            <div class="editor_anchor " id="up" />
-            <div class="editor_anchor" id="midle" />
-            <div class="editor_anchor" id="bottom" />
+            background-image: url(/canvas_backgrounds/canvas_background_red.png);"
+        />
+
+        <div class="w-full h-full overflow-hidden">
+            <div
+                bind:this={canvas}
+                style="
+                transform: scale({aspectRatio});
+                transform-origin: top left;
+            "
+                class="relative w-[590px]  px-[30px] py-[30px] flex items-center flex-col"
+            >
+                <div class="editor_anchor" id="up" />
+                <div class="editor_anchor" id="midle" />
+                <div class="editor_anchor" id="bottom" />
+            </div>
         </div>
         {#if $target != null}
             <div
@@ -146,12 +167,13 @@
             </div>
         {/if}
     </div>
-    <div class=" absolute rounded-[15px] overflow-hidden bottom-5 h-fit w-fit">
+    <div class="shrink-0  rounded-[15px] overflow-hidden h-fit w-fit !mb-7">
         <div
-            class="max-w-[500px] space-x-3 bg-gray-500/80 backdrop-blur-lg flex flex-row items-center px-5 py-5"
+            class="max-w-[500px] space-x-3 bg-gray-500/80 backdrop-blur-lg flex flex-row items-center p-3"
         >
-            <Text />
             <TextSpace />
+            <Text />
+           
         </div>
         {#if $is_editing == true}
             <div class="absolute w-full h-full z-10 top-0 left-0" />

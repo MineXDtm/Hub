@@ -32,10 +32,10 @@
 <div
     draggable="false"
     on:touchstart={is_dragged}
-    class="w-[100px] transition-transform h-[45px] bg-white flex justify-center items-center rounded-md {dragged
+    class="w-[160px] transition-transform h-[45px] bg-white flex justify-center items-center rounded-md {dragged
         ? 'fixed scale-75 shadow-xl pointer-events-none select-none'
         : 'active:scale-125'}"
-    style="left: {dragged ? X - 50 + 'px' : '0'}; top: {dragged
+    style="left: {dragged ? X - 80 + 'px' : '0'}; top: {dragged
         ? Y - 22.5 + 'px'
         : '0'};"
 >
@@ -47,6 +47,6 @@
         background-clip: text;"
         class=" text-[23px] SegoeUI_Black select-none pointer-events-none" 
     >
-        Space
+        Space Text
     </p>
 </div>

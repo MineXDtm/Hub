@@ -21,7 +21,7 @@
         @apply !select-none !cursor-none !important;
     }
     .editor_anchor{
-        @apply w-fit max-w-full grow flex flex-col;
+        @apply w-full max-w-full grow flex flex-col space-y-[10px]  ;
     }
     .editor_hover_target{
         @apply bg-blue-300 bg-opacity-30;
