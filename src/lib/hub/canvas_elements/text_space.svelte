@@ -16,7 +16,7 @@
     export var id = uuidv4();
     export var content = "Cats Are Cool!";
     function onclick(event) {
-        if (edit || $is_editing) return;
+        if (edit || !$is_editing ) return;
         options = !options;
         if (options) currect_options.set(id);
         else currect_options.set(null);
@@ -69,9 +69,9 @@
         on:click={onclick}
         contenteditable={edit}
         class="  max-w-full w-fit h-auto
-          text-[64px] SegoeUI_Black bg-cover  outline-2 rounded-[15px] break-words {edit
+          text-[64px] SegoeUI_Black bg-cover drop-shadow-[0_2px_8px_rgb(0,0,0,0.15)] outline-2 rounded-[15px] break-words {edit
             ? '   outline-white '
-            : '   select-none cursor-pointer outline-none'}
+            : '   select-none outline-none'}
                {options ? ' !outline-black  ' : ''}
             {is_placed ? ' ' : 'pointer-events-none opacity-50'}"
         style="outline-style: solid; background-image: url(/canvas_elements/space/noise_blue_space_text.png);

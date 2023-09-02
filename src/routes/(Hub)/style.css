@@ -21,13 +21,16 @@
         @apply !select-none !cursor-none !important;
     }
     .editor_anchor{
-        @apply w-full max-w-full grow flex flex-col space-y-[10px]  ;
+        @apply w-full max-w-full grow flex flex-col shrink-0 space-y-[10px]  ;
     }
     .editor_hover_target{
         @apply bg-blue-300 bg-opacity-30;
     }
     .editor_hover{
         @apply w-full grow;
+    }
+    .option_background{
+        @apply w-[64px] h-[64px] bg-center shadow-md bg-cover bg-slate-600 rounded-[15px] border-[4px] border-white;
     }
     .options_button{
         @apply  px-3 py-3 bg-white cursor-pointer rounded-[15px] shadow-xl flex justify-center items-center transition-transform hover:scale-110 active:scale-75;

@@ -10,8 +10,7 @@
     export var bottom_options_size_x = 0;
     export var rect: any = null;
     export var root: any = null;
-    export var content: string = "";
-    import { is_editing } from "$lib/hub/editor";
+    export var content: string = ""; 
     export var root_top;
 </script>
 
@@ -30,8 +29,7 @@
                 <div
                     on:click={() => {
                         options = false;
-                        edit = true;
-                        is_editing.set(true);
+                        edit = true; 
                     }}
                     class="options_button ml-4"
                 >
@@ -105,8 +103,7 @@
                     </p>
                     <Options_button
                         onclick={() => {
-                            edit = false;
-                            is_editing.set(false);
+                            edit = false; 
                         }}
                         title="Done"
                     />

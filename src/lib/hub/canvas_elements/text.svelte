@@ -16,7 +16,7 @@
     export var id = uuidv4();
     export var content = `Cats are making headlines for various reasons, from being shaved in attacks to being rescued from car engines and recycling plants. Some cats are also helping children read stories and boosting campus wellbeing. Cats are truly amazing animals!😻`;
     function onclick(event) {
-        if (edit || $is_editing) return;
+        if (edit || !$is_editing ) return;
         options = !options;
         if (options) currect_options.set(id);
         else currect_options.set(null);
@@ -75,9 +75,9 @@
         on:click={onclick}
         class="  max-w-full w-fit h-auto
 
-           text-[24px] text-white font-semibold SegoeUI_Semibold p-2 rounded-[15px] break-words {edit
+           text-[24px] drop-shadow-[0_2px_8px_rgb(0,0,0,0.25)] text-white font-semibold SegoeUI_Semibold p-2 rounded-[15px] break-words {edit
             ? '   outline-white '
-            : '   select-none cursor-pointer outline-none'}
+            : '   select-none outline-none'}
                {options ? ' !outline-black  ' : ''}
             {is_placed ? ' ' : 'pointer-events-none opacity-50'}"
         style="outline-style: solid;"
